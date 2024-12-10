@@ -14,25 +14,25 @@ app.use(express.urlencoded());
 
 
 const cors=require("cors");
-// app.use(cors({
-//     origin:[process.env.FRONTEND_URL || 'https://handyhub31.netlify.app'],
-//    
-//     methods:["POST","GET"],
-//     credentials:true,
-// })
-// )
-app.use((req, res, next) => {
-        res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173"),
-        res.header(
-            "Access-Control-Allow-Headers",
-            "Origin, X-Requested-with, Content-Type, Accept",
+app.use(cors({
+    origin:[process.env.FRONTEND_URL || 'https://handyhub31.netlify.app'],
+   
+    methods:["POST","GET"],
+    credentials:true,
+})
+)
+// app.use((req, res, next) => {
+//         res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173"),
+//         res.header(
+//             "Access-Control-Allow-Headers",
+//             "Origin, X-Requested-with, Content-Type, Accept",
            
-        );
+//         );
         
-        res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials
+//         res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials
        
-        next();
-    });
+//         next();
+//     });
 app.get('/',(req,res)=>{
     res.send("<h1>Hello</h1>")
 })
