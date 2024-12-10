@@ -15,8 +15,7 @@ app.use(express.urlencoded());
 
 const cors=require("cors");
 app.use(cors({
-    origin:[process.env.FRONTEND_URL || 'https://handyhub31.netlify.app'],
-   
+    origin:['https://handyhub31.netlify.app',"http://127.0.0.1:5173"],
     methods:["POST","GET"],
     credentials:true,
 })
