@@ -1,17 +1,15 @@
 const express=require("express");
-const { payController, addWorkForce, contactController, getworkforceController } = require("../controller/workController");
-// import razorpay from "razorpay";
-const router=express.Router();
+const { payController, addWorkForce, contactController, getworkforceController, tokenController, joinController } = require("../controller/workController");
 
-// const raazorpayInstance=new Razorpay({
-//     key_id:process.env.RAZORPAY_ID,
-//     key_secret:process.env.KEY_SECRET
-// })
+const router=express.Router();
 
 router.post('/add-workforce',addWorkForce);
 router.post('/pay',payController);
 
 router.post('/contact',contactController);
 router.get('/get-workforce',getworkforceController);
+
+router.get('/token',tokenController);
+router.post('/join',joinController);
 
 module.exports=router;

@@ -1,6 +1,7 @@
 const bcrypt=require("bcryptjs");
 const usermodel = require("../model/usermodel");
 const jwt=require("jsonwebtoken");
+const servicemodel=require("../model/serviceModel");
 
 const RegisterController=async(req,res)=>{
     try{
@@ -78,4 +79,34 @@ const loginController=async(req,res)=>{
     }
 }
 
-module.exports={RegisterController,loginController}
+const RatingController=async(req,res)=>{
+    try{
+    const {workforceid,rating}=req.body;
+    const data=await servicemodel.find({workforceid:workforceid});
+    if(data){
+        console.log(data);
+    let count=data[0].ratingCount;
+    let previousRating=data[0].rating;
+    console.log(rating,previousRating);
+   let newcount=count+1;
+    let newRating=(previousRating*count+rating)/newcount;
+    await servicemodel.updateOne(
+        { workforceid: data[0].workforceid }, // Identify the record
+        { $set: { rating: newRating, ratingCount: newcount } } // Update the fields
+    )
+    return res.status(200).json({
+        message:"Rating Done Successful",
+        success:true
+    })
+    }
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({
+            message:'err in rating',
+            success:false
+        })
+    }
+
+}
+
+module.exports={RegisterController,loginController,RatingController};
